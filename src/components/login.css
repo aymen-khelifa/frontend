@@ -1,0 +1,65 @@
+.btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  
+  
+  
+  .GoogleLogin {
+  display:inline-block;
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  border: none;
+  padding: 1px 1px;
+  font-size: 14px;
+  font-weight:normal;
+  position:relative;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  cursor: pointer;width: 100%;height: 35px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgb(0, 0, 0);
+  }
+  
+  .GoogleLogin:hover {
+    border-color: #e7e9ee;  border: 1px solid rgb(0, 0, 0);
+
+  }
+
+
+
+  
+.btn-facebook {
+  display:inline-block;
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  border: none;
+  padding: 1px 1px;
+  font-size: 14px;
+  font-weight:normal;
+  position:relative;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  cursor: pointer;width: 100%;height: 35px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.btn-facebook:hover {
+  background-color: #e7e9ee;
+}
+
+.divg{padding-bottom: 10px;}
+.logof{position: absolute;margin-top: -38px;margin-left: 18px;}
+.logog{position: absolute;margin-top: -1px;margin-left: -2.3cm;}
+#form1{padding-bottom: 20px;margin-top: 30px;}
+.connexion{width: 100%;margin-top: 20px;
+  height: 35px;background-color: #20384D;color: white;cursor: pointer;border: 1px solid rgb(0, 0, 0);}
+  .connexion:hover {
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);background-color: #2b367b;
+
+  }

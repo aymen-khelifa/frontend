@@ -1,0 +1,58 @@
+.btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  
+  .GoogleLogin {
+    display: inline-block;
+    background-color: white;
+    color:rgb(0, 0, 0);
+    border: 1px solid #f7f0f0;
+    padding: 1px 1px;
+    font-size: 14px;
+    font-weight: normal;
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgb(0, 0, 0);width: 100%;height: 35px;
+  }
+  .GoogleLogin:hover {
+    background-color: #e9eaec;
+  }
+.btn-facebook {
+    display:inline-block;
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+    border: none;
+    padding: 1px 1px;
+    font-size: 14px;
+    font-weight:normal;
+    position:relative;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    cursor: pointer;width: 100%;height: 35px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.btn-facebook:hover {
+  background-color: #e9eaec;
+}
+.ou{position: relative;margin-left: 45%;margin-top:10px;margin-bottom: 10px; font-size: small;}
+
+.p{font-size: 13.5px;}
+
+.divg{padding-bottom: 10px;}
+.logof{position: absolute;margin-top: -38px;margin-left: 18px;}
+#logog{position: absolute;margin-top: -2px;margin-left: -2.25cm;}
+.form{padding-bottom: 20px;}
+.inscrivez{width: 100%;margin-top: 20px;
+  height: 35px;background-color: #20384D;color: white;cursor: pointer;border: 1px solid rgb(0, 0, 0);}
+  .inscrivez:hover {
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);background-color: #2b367b;
+
+  }

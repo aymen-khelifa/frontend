@@ -1,0 +1,25 @@
+#rech{    border: 1px solid rgb(0, 0, 0);}
+.select{margin-left:10px;height: 10px;}
+.connecter{     background-color: #eeeaea;
+    color: #03034a;
+    cursor: pointer;
+    position: relative;border-radius: 2px;
+    border: 1px solid rgb(0, 0, 0);margin-left: 30px;width: 101px;height: 35px;
+}
+.sinscrire{  background-color: #20384D; 
+    color: #fefefe; 
+    cursor: pointer;
+    border: 1px solid rgb(0, 0, 0);
+    margin-left:5px;
+    width: 90px;height: 35px;
+    border-radius: 2px;}
+.panier{position:relative;margin-left: 25px;}
+.sinscrire:hover {
+    border-color: #281c1c;background-color: #27379d;color: #ffffff;
+  }
+.connecter:hover {
+    border-color: #1b1111;
+    background-color: #e9eaec;color: #010101;
+  }
+.eng{margin-left: 15px;}
+#Uvct{color:#000000;}
