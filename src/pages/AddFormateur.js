@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import FormAddFormateur from "../components/FormAddFormateur";
+import FormAddFormateur from "../components/addformateur/FormAddFormateur";
 import Header from "../header/Header";
 
 const AddFormateur = () => {
@@ -19,7 +19,7 @@ const AddFormateur = () => {
   return (
     <div>
       <Header/>
-    <FormAddFormateur/>
+      <FormAddFormateur/>
     </div>
       
       

@@ -1,0 +1,15 @@
+.inscrivez{width:25%;margin-top: 20px;margin-left: 20px;
+    height: 35px;background-color: #20384D;color: white;cursor: pointer;border: 1px solid rgb(0, 0, 0);}
+    .inscrivez:hover {
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);background-color: #2b367b;
+  
+    }
+
+.form{padding-bottom: 30px;}
+
+.annuler{width: 25%;margin-top: 20px;margin-left: 150px;
+    height: 35px;background-color: #bcbcc9;color: rgb(0, 0, 0);cursor: pointer;border: 1px solid rgb(0, 0, 0);}
+    .inscrivez:hover {
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);background-color: #2b367b;
+  
+    }

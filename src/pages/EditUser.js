@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import Layout from "./Layout";
-import Formmdpoublie from "../components/Formmdpoublie";
+import Formmdpoublie from "../components/mdpoublie/Formmdpoublie";
 import {  useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -19,9 +18,9 @@ const EditUser = () => {
     }
   }, [isError, user, navigate]);
   return (
-    <Layout>
+   
       <Formmdpoublie />
-    </Layout>
+    
   );
 };
 

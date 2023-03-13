@@ -1,11 +1,8 @@
 
-
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { LoginUser, reset } from "../features/authSlice";
+import React, { useState } from "react";
+//import { useDispatch, useSelector } from "react-redux";
+//import { useNavigate } from "react-router-dom";
 import GoogleLogin from 'react-google-login' ;
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -15,12 +12,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props' 
-import './register.css'
-import logo from "./img/facebook-icon.png"
-import logog from "./img/google.png"
+import './Register.css'
+import logo from "../img/facebook-icon.png"
+import logog from "../img/google.png"
 import axios from "axios";
-import { validateName,validateEmail,validatePassword }  from "./Validation";
- 
+import { Snackbar, Alert} from "@mui/material";
+//import { useEffect } from "react";*/
 
 const handleFacebookResponse = (response) => {
   console.log(response);
@@ -34,15 +31,19 @@ const Registrer = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
   const [err , setErr] = useState("");
   const [success , setSuccess] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [msg, setMsg] = useState("");
+  
+  //const dispatch = useDispatch();
+ // const navigate = useNavigate();
+ // const [msg, setMsg] = useState("");
 
-  const { user, isError, isSuccess, isLoading, message } = useSelector(
-    (state) => state.auth
-  );
+  //const { user, isError, isSuccess, isLoading, message } = useSelector(
+ //   (state) => state.auth
+ // );
 
   
   const Auth = async (e) => {
@@ -59,23 +60,53 @@ const Registrer = () => {
           "withCredentials": true 
         }
         
+        
         ).then(res=>{
-          if (res.status===200){
-            console.log("success");
-            alert("user created successfully")
-          }
-        },).catch(err=>{
-        console.log("user already exist");
-            alert("user already exist")
-      });
+        if(res.status===200){
+          
+            //alert("user created successfully");
+            setSuccess('user created successfully ...check your inbox ');}
+      })
   
-  }
+        
+        .catch(err=>{
+        console.log("erreur");
+        setErr('user already exists OR register failed');
+           // alert("erreur")
+      });
+      
 
 
 
-   
+      
+    
+};
 
-    //
+
+
+
+  const isFormValid = () => {
+    // add validation rules here
+    return name !== '' && email !== '' && password !== '' && !nameError && !emailError && !passwordError;
+  };
+  const handleNameChange = (event) => {
+    const { value } = event.target;
+    setName(value);
+    setNameError(value.length < 3);
+  };
+
+  const handleEmailChange = (event) => {
+    const { value } = event.target;
+    setEmail(value);
+    setEmailError(value === '' || !/\S+@\S+\.\S+/.test(value));
+  };
+
+  const handlePasswordChange = (event) => {
+    const { value } = event.target;
+    setPassword(value);
+    setPasswordError(value.length < 8);
+  };
+ 
 
     
   
@@ -85,7 +116,7 @@ const Registrer = () => {
     <ThemeProvider theme={theme}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box
+      <Box onSubmit={Auth}
         sx={{
           marginTop:  4,
           display: 'flex',
@@ -98,8 +129,8 @@ const Registrer = () => {
         <Typography   component="h1" variant="h5">
           S'inscrire
         </Typography>
-        <Box component="form"  Validate onSubmit={Auth} sx={{ mt: 4 }} className="form">
-          <Grid container spacing={2}>
+        <Box component="form"  Validate onSubmit={Auth}  sx={{ mt: 4 }} className="form">
+          <Grid container spacing={2}> 
            
             <Grid item xs={12}  > 
               <label>NOM  COMPLET</label>
@@ -108,12 +139,17 @@ const Registrer = () => {
                 name="NOM COMPLET" 
                 required 
                 fullWidth  
+                
                 id="nom"
                 placeholder="Saisissez votre nom et prénom"
                 autoFocus
                 value={name}
-                onChange={(e)=> setName(e.target.value)}
+                
+                onChange={handleNameChange}
+                error={nameError}
+                 helperText={nameError && 'Name is required and at least 3 character'}
               />
+              
             </Grid>
             <Grid item xs={12}>
               <label>ADRESSE E-MAIL</label>
@@ -125,7 +161,9 @@ const Registrer = () => {
                 name="email"
                 
                 value={email}
-                onChange={(e)=> setEmail(e.target.value)}
+                onChange={handleEmailChange}
+                error={emailError}
+                helperText={emailError ? 'Please enter a valid email address' : ''}
 
               />
             </Grid>
@@ -140,7 +178,9 @@ const Registrer = () => {
                 id="password"
                 value={password}
                 autoComplete="new-password"
-                onChange={(e)=> setPassword(e.target.value)}
+                onChange={handlePasswordChange}
+                error={passwordError}
+                helperText={passwordError ? 'Password must be at least 6 characters' : ''}
 
               />
             </Grid>
@@ -148,10 +188,10 @@ const Registrer = () => {
             
           </Grid>
           <button 
-            type="submit"
-            fullWidth
+            type="submit" disabled={!isFormValid()}
+            
             variant="contained" 
-            sx={{ mt: 3, mb: 2 }} className="inscrivez"
+            sx={{ mt: 3, mb: 2 }} id="inscrivez"
           >
             Inscrivez-vous 
           </button>
@@ -176,7 +216,7 @@ const Registrer = () => {
           <div className="divf" sx={{ mt: 3, mb: 2 }}  >
           <FacebookLogin 
           appId="1088597931155576"
-          autoLoad
+          //autoLoad
           callback={handleFacebookResponse}
           render={renderProps => (
            <button className="btn-facebook" fullWidth onClick={renderProps.onClick}>Continuer avec Facebook</button>
@@ -194,6 +234,20 @@ const Registrer = () => {
       </Box>
       
     </Container>
+    <Snackbar autoHideDuration={2500} open={ err === "" ? false : true } onClose={()=>{ setErr("") }}  >
+        <Alert variant="filled" severity="error" onClose={()=>{ setErr("") }} >
+          {
+            err
+          }
+        </Alert>
+      </Snackbar>
+      <Snackbar autoHideDuration={2500} open={ success === "" ? false : true } onClose={()=>{ setSuccess("") }}  >
+        <Alert variant="filled" severity="success" onClose={()=>{ setSuccess("") }} >
+          {
+            success
+          }
+        </Alert>
+      </Snackbar>
   </ThemeProvider>
   );
 };

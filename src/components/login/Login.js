@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {  reset } from "../features/authSlice";
+import {  reset } from "../../features/authSlice";
 import GoogleLogin from 'react-google-login' ;
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props' 
 import axios from 'axios';
@@ -13,9 +13,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import logo from "./img/facebook-icon.png"
-import logog from "./img/google.png"
+import logo from "../img/facebook-icon.png"
+import logog from "../img/google.png"
 import './login.css'
+import { Snackbar, Alert} from "@mui/material";
+
 const handleFacebookResponse = (response) => {
   console.log(response);
   // handle Facebook login response
@@ -23,14 +25,19 @@ const handleFacebookResponse = (response) => {
 const responseGoogle = (response) => {
   console.log(response);
 }
-
+ 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [err , setErr] = useState("");
+  const [success , setSuccess] = useState("");
+  const navigate = useNavigate();
    const handleSubmit = async (e) => {
     e.preventDefault();
-          await axios.post('http://localhost:5000/users/Login', {
+         const response= await axios.post('http://localhost:5000/users/Login', {
           email: email,
           password: password
           
@@ -42,32 +49,53 @@ const Login = () => {
           }
           
           ).then(res=>{
-            if (res.status===200){
-              console.log("user logged successfully")
-            }
-            
+          
+           
+              console.log("user logged successfully");
+              setSuccess('user logged successfully');
+             
+            // navigate("/Home");
             }).catch(err=>{
-          console.log("user non trouvé")
-        });
-    
-    }
-      
+          console.log(err);
+          setErr('user does not exist');
+        }); 
+        //navigate("/Home");
+        
+            // setErr(data.msg);
+        }
+       
+   
+  
 
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { user, isError, isSuccess, message } = useSelector(
+  
+  const { user, isError, isSuccess, message ,isLoading} = useSelector(
     (state) => state.auth
   );
 
-  useEffect(() => {
-    if (user || isSuccess) {
-      navigate("/AddFormateur");
-    }
-    dispatch(reset());
-  }, [user, isSuccess, dispatch, navigate]);
-
   
+ 
+     
+  
+    
+
+
+  const isFormValid = () => {
+    // add validation rules here
+    return  email !== '' && password !== ''  && !emailError && !passwordError;
+  };
+
+  const handleEmailChange = (event) => {
+    const { value } = event.target;
+    setEmail(value);
+    setEmailError(value === '' || !/\S+@\S+\.\S+/.test(value));
+  };
+
+  const handlePasswordChange = (event) => {
+    const { value } = event.target;
+    setPassword(value);
+    setPasswordError(value.length < 8);
+  };
   const theme = createTheme();
 
   return (
@@ -87,18 +115,20 @@ const Login = () => {
         <Typography className="aaz" component="h1" variant="h5">
            Bienvenue
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} id="form1">
+        <Box component="form" onSubmit={handleSubmit} Validate sx={{ mt: 1 }} id="form1">
         {isError && <p className="has-text-centered">{message}</p>}
           <label>ADRESSE E-MAIL</label>
           <TextField
             margin="normal"
             required
             fullWidth
-            id="email"
+            id="email" type="email"
             name="email"
             placeholder="nom@email.com"
             autoFocus
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
+            error={emailError}
+            helperText={emailError ? 'Please enter a valid email address' : ''}
           />
           <label>MOT DE PASSE</label>
           <TextField
@@ -109,20 +139,23 @@ const Login = () => {
             type="password"
             id="password"
             placeholder="saisissez votre mot de passe"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
+             error={passwordError}
+             helperText={passwordError ? 'Password must be at least 6 characters' : ''}
 
           />
           <Grid item xs>
-              <Link href="/users/" color={'black'} underline="none" id="oubli" variant="body2" className="oubli">
+              <Link href="/Formemail" color={'black'} underline="none" id="oubli" variant="body2" className="oubli">
                 mot de passe oublié?
               </Link>
             </Grid>
           
           <button
-            type="submit"
+            type="submit" disabled={!isFormValid()}
             fullWidth
             variant="contained" 
             sx={{ mt: 3, mb: 2 }} className="connexion"
+
           >
             Connexion
           </button>
@@ -144,7 +177,7 @@ const Login = () => {
           
           <FacebookLogin 
           appId="1088597931155576"
-          autoLoad
+         // autoLoad
           callback={handleFacebookResponse}
           render={renderProps => (
            <button className="btn-facebook" fullWidth onClick={renderProps.onClick}>Continuer avec Facebook</button>
@@ -163,8 +196,22 @@ const Login = () => {
         </Box>
       </Box>
     </Container>
+    <Snackbar autoHideDuration={2500} open={ err === "" ? false : true } onClose={()=>{ setErr("") }}  >
+        <Alert variant="filled" severity="error" onClose={()=>{ setErr("") }} >
+          {
+            err
+          }
+        </Alert>
+      </Snackbar>
+      <Snackbar autoHideDuration={2500} open={ success === "" ? false : true } onClose={()=>{ setSuccess("") }}  >
+        <Alert variant="filled" severity="success" onClose={()=>{ setSuccess("") }} >
+          {
+            success
+          }
+        </Alert>
+      </Snackbar>
   </ThemeProvider>
 );
-};
+        }
 
 export default Login;

@@ -8,10 +8,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import './Formmdpoublie.css'
+import './changemdp.css'
 
 import axios from "axios";
-const FormEditUser = () => {
+const Changemdp = () => {
   const [email, setEmail] = useState("");
   const [newpassword, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
@@ -59,8 +59,8 @@ const FormEditUser = () => {
           padding:3,paddingTop:6,
         }}
       >
-        <Typography component="h1" variant="h5">
-         mot de passe oublié
+        <Typography component="h1" variant="h5" href='/mdpoublie'>
+         changer mot de passe 
         </Typography>
         <Box component="form"  noValidate onSubmit={updateUser} sx={{ mt: 4 }} id="form">
           <Grid container spacing={2}>
@@ -129,4 +129,4 @@ const FormEditUser = () => {
   );
 };
 
-export default FormEditUser;
+export default Changemdp;

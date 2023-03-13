@@ -9,42 +9,6 @@ const initialState = {
     message: ""
 }
 
-export const RegisterUser = createAsyncThunk("user/RegisterUser", async(user) => {
-   
-          await axios.post('http://localhost:5000/users/register', {
-            name:  user.name,
-            email: user.email,
-            password:  user.password
-            
-          },{
-               headers: {'X-Requested-With': 'XMLHttpRequest', 
-               "content-type":"application/json", "Access-Control-Allow-Origin": "http://localhost:5000", 
-               "Access-control-request-methods":"POST, GET, DELETE, PUT, PATCH, COPY, HEAD, OPTIONS"}, 
-              "withCredentials": true 
-            }
-            
-            ).then(response => {
-            console.log('User created successfully!')
-          }).catch(err=>{
-            console.log(err)
-          });
-        })
-
-export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI) => {
-    try {
-        const response = await axios.post('http://localhost:5000/login', {
-            email: user.email,
-            password: user.password
-        });
-        return response.data;
-    } catch (error) {
-        if(error.response){
-            const message = error.response.data.msg;
-            return thunkAPI.rejectWithValue(message);
-        }
-    }
-});
-
 export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     try {
         const response = await axios.get('http://localhost:5000/me');
@@ -57,9 +21,7 @@ export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     }
 });
 
-export const LogOut = createAsyncThunk("user/LogOut", async() => {
-    await axios.delete('http://localhost:5000/logout');
-});
+
 
 export const authSlice = createSlice({
     name: "auth",
@@ -68,20 +30,7 @@ export const authSlice = createSlice({
         reset: (state) => initialState
     },
     extraReducers:(builder) =>{
-        builder.addCase(LoginUser.pending, (state) =>{
-            state.isLoading = true;
-        });
-        builder.addCase(LoginUser.fulfilled, (state, action) =>{
-            state.isLoading = false;
-            state.isSuccess = true;
-            state.user = action.payload;
-        });
-        builder.addCase(LoginUser.rejected, (state, action) =>{
-            state.isLoading = false;
-            state.isError = true;
-            state.message = action.payload;
-        })
-
+        
         // Get User Login
         builder.addCase(getMe.pending, (state) =>{
             state.isLoading = true;

@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginUser, reset } from "../features/authSlice";
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import './Formedituser.css'
+import './Formmdpoublie.css'
 
 import axios from "axios";
-const FormEditUser = () => {
+const Formmdpoublie = () => {
   const [email, setEmail] = useState("");
   const [newpassword, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
@@ -26,7 +23,7 @@ const FormEditUser = () => {
 
   const updateUser = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:5000/mdpoublie', {
+    await axios.post('http://localhost:5000/users/update', {
         email: email,
         newpassword: newpassword,
         confpassword:confPassword
@@ -38,7 +35,7 @@ const FormEditUser = () => {
         }
         
         ).then(
-        navigate("/Login"))
+        navigate("/dashbord"))
         .catch(err=>{
         console.log(err)
       });
@@ -62,13 +59,12 @@ const FormEditUser = () => {
           padding:3,paddingTop:6,
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" href='/mdpoublie'>
          mot de passe oublié
         </Typography>
         <Box component="form"  noValidate onSubmit={updateUser} sx={{ mt: 4 }} id="form">
           <Grid container spacing={2}>
-           
-            <Grid item xs={12}  > 
+          <Grid item xs={12}  > 
               <label>ADRESSE E-MAIL</label>
               <TextField
                 name="email" 
@@ -81,6 +77,7 @@ const FormEditUser = () => {
                 onChange={(e)=> setEmail(e.target.value)}
               />
             </Grid>
+            
             <Grid item xs={12}>
               <label>NOUVEAU MOT DE PASSE</label>
               <TextField
@@ -132,4 +129,4 @@ const FormEditUser = () => {
   );
 };
 
-export default FormEditUser;
+export default Formmdpoublie;

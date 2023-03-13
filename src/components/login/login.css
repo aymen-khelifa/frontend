@@ -52,6 +52,7 @@
 .btn-facebook:hover {
   background-color: #e7e9ee;
 }
+.ou{position: relative;margin-left: 45%;margin-top:10px;margin-bottom: 10px; font-size: small;}
 
 .divg{padding-bottom: 10px;}
 .logof{position: absolute;margin-top: -38px;margin-left: 18px;}

@@ -207,7 +207,7 @@ function Header() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          <Button  className={classes.title} id="Devenirinstructeur" underline="none" variant="h10" noWrap href='/FormAddFormateur' >
+          <Button  className={classes.title} id="Devenirinstructeur" underline="none" variant="h10" noWrap href='/ajouterformateur' >
             Devenir instructeur
           </Button>
           <AddShoppingCartIcon className='panier'>
